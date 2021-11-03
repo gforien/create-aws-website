@@ -4,7 +4,7 @@
 ### 👷‍♂️ Usage
 ```sh
 # dot-source the script file
-. script.ps1
+. ./script.ps1
 
 # execute
 Create-AWS-Website babar.aws.gforien.com
