@@ -94,6 +94,7 @@ function Create-AWS-Website {
       && amazon-linux-extras install -y -q nginx1 \
       && service nginx start \
       && echo \<h1\>$TARGET\</h1\> > /usr/share/nginx/html/index.html'"
+    $script = $script -replace "`r`n","`n"
     ssh -o StrictHostKeyChecking=no "ec2-user@$TARGET" $script || Write-Error Error
 
 
