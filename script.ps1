@@ -29,10 +29,10 @@ function Create-AWS-Website {
       Select-Object -ExpandProperty InstanceId -OutVariable global:NEW_INSTANCE_ID |
       Out-Null || Write-Error Error
     Write-Host -ForegroundColor 'DarkGreen' "→ created instance $NEW_INSTANCE_ID"
-    Start-Sleep 1
 
 
     # 2. Get public DNS
+    Start-Sleep 3
     Write-Host "Retrieving DNS name"
     aws ec2 describe-instances |
       ConvertFrom-Json |
