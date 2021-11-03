@@ -29,10 +29,10 @@ function Create-AWS-Website {
       Select-Object -ExpandProperty InstanceId -OutVariable global:NEW_INSTANCE_ID |
       Out-Null || Write-Error Error
     Write-Host -ForegroundColor 'DarkGreen' "→ created instance $NEW_INSTANCE_ID"
-    Start-Sleep 1
 
 
     # 2. Get public DNS
+    Start-Sleep 3
     Write-Host "Retrieving DNS name"
     aws ec2 describe-instances |
       ConvertFrom-Json |
@@ -94,6 +94,7 @@ function Create-AWS-Website {
       && amazon-linux-extras install -y -q nginx1 \
       && service nginx start \
       && echo \<h1\>$TARGET\</h1\> > /usr/share/nginx/html/index.html'"
+    $script = $script -replace "`r`n","`n"
     ssh -o StrictHostKeyChecking=no "ec2-user@$TARGET" $script || Write-Error Error
 
 
