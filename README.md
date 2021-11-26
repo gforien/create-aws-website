@@ -4,8 +4,8 @@
 ### 🌀 Terraform
 ```powershell
 terraform apply -auto-approve `
-    -var "key=$AWS_KEYNAME" `
-    -var "sg=https-security-group"
+    -var "key=my_key" `
+    -var "sg=my_security_group"
 ```
 
 ### 👷‍♂️ Powershell
