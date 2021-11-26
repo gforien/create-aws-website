@@ -22,11 +22,18 @@ resource "aws_instance" "main" {
     #!/bin/bash
     sudo yum update -y
     sudo amazon-linux-extras install -y nginx1
+    echo "<h1>${var.target}</h1>" > /usr/share/nginx/html
     sudo service nginx start
-    echo '<h1>gforien.com</h1>' > /usr/share/nginx/html
   EOF
 }
 
+resource "aws_route53_record" "main" {
+  zone_id = var.zone
+  name    = var.target
+  type    = "CNAME"
+  ttl     = 600
+  records = [aws_instance.main.public_dns]
+}
 
 # (Note that variables should be declared in file variables.tf)
 variable "key" {
@@ -38,4 +45,14 @@ variable "sg" {
   type        = string
   description = "A pre-existing security group"
   default     = ""                                            # default can be empty
+}
+variable "zone" {
+  type        = string
+  description = "A pre-existing DNS zone in Route53"
+  default     = ""
+}
+variable "target" {
+  type        = string
+  description = "The subdomain to be created"
+  default     = ""
 }
